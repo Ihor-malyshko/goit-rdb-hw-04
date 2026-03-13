@@ -1,0 +1,60 @@
+-- Task1
+CREATE SCHEMA IF NOT EXISTS LibraryManagement;
+USE LibraryManagement;
+CREATE TABLE authors (
+    author_id INT AUTO_INCREMENT PRIMARY KEY,
+    author_name VARCHAR(255) NOT NULL
+);
+CREATE TABLE genres (
+    genre_id INT AUTO_INCREMENT PRIMARY KEY,
+    genre_name VARCHAR(100) NOT NULL
+);
+CREATE TABLE books (
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    publication_year YEAR,
+    author_id INT,
+    genre_id INT,
+    FOREIGN KEY (author_id) REFERENCES authors(author_id),
+    FOREIGN KEY (genre_id) REFERENCES genres(genre_id)
+);
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL
+);
+CREATE TABLE borrowed_books (
+    borrow_id INT AUTO_INCREMENT PRIMARY KEY,
+    book_id INT,
+    user_id INT,
+    borrow_date DATE NOT NULL,
+    return_date DATE,
+    FOREIGN KEY (book_id) REFERENCES books(book_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- Task2 
+USE LibraryManagement;
+INSERT INTO authors (author_name) 
+VALUES 
+('author_name 1'), 
+('author_name 2');
+
+INSERT INTO genres (genre_name) 
+VALUES 
+('genre_name_1'), 
+('genre_name_2');
+
+INSERT INTO users (username, email) 
+VALUES 
+('username_1', 'username_1@example.com'), 
+('username_2', 'username_2@example.com');
+
+INSERT INTO books (title, publication_year, author_id, genre_id) 
+VALUES 
+('books_title_1', 1990, 1, 1),
+('books_title_2', 2020, 2, 2);
+INSERT INTO borrowed_books (book_id, user_id, borrow_date, return_date) 
+VALUES 
+(1, 1, '2026-01-15', '2026-01-25'),
+(2, 2, '2025-02-25', NULL);
